@@ -23,18 +23,22 @@ while (True):
     }
 
     print(first,op,second,"=")
-    value = switcher.get(op, "default")
+    value = float(switcher.get(op, "default"))
     start = time.time()
-    ans = '{0:.3g}'.format(float(input("Input your answer: ")))
+    ans = float('{0:.3g}'.format(float(input("Input your answer: "))))
     sec_elapsed = time.time() - start
     times.append(sec_elapsed)
     if(ans == value):
         correct = correct + 1
         total = total + 1
-        p_correct = correct / total
         print("correct!")
+    elif (ans > (value - 0.5) and ans < (value + 0.5)):
+        correct = correct + 1
+        total = total + 1
+        print("close enough! exact answer is: ", value)
     else:
         incorrect = incorrect + 1
         total = total + 1
         print("incorrect, correct answer: ", value)
+    p_correct = correct / total
     print("-----------------------------------------\nPercent Correct: ", (100 * p_correct), "%\nAverage Time: ",mean(times), " seconds\nTotal Questions: ",total, "\n-----------------------------------------")
